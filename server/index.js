@@ -18,4 +18,12 @@ app.use(cors({
 }))
 
 
+mongoose.connect('mongodb://localhost:27017/final-crypto-price-alerts', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(()=>{
+    console.log("mongoose connected")
+}).catch((error)=>{
+    console.error('MongoDB connection error:', error);
+})
 

@@ -1,0 +1,24 @@
+{
+  "name": "finalcryptopricealert",
+  "version": "1.0.0",
+  "description": "Crypto-Price-alert helps the user to trigger an email if the target price is hit :)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tanujch03/Cryto-Price-Alert.git"
+  },
+  "keywords": [
+    "crypto-alert",
+    "price-alert",
+    "binance"
+  ],
+  "author": "Tanuj chaganti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tanujch03/Cryto-Price-Alert/issues"
+  },
+  "homepage": "https://github.com/Tanujch03/Cryto-Price-Alert#readme"
+}

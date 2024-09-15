@@ -18,12 +18,22 @@ app.use(cors({
 }))
 
 
-mongoose.connect('mongodb://localhost:27017/final-crypto-price-alerts', {
+mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then(()=>{
+})
+.then(()=>{
     console.log("mongoose connected")
-}).catch((error)=>{
+})
+.catch((error)=>{
     console.error('MongoDB connection error:', error);
 })
 
+app.use('/auth',authRoutes)
+app.use('alerts',priceAlertRoutes)
+
+
+
+app.listen(process.env.PORT,()=>{
+    console.log(`Server running successfully at ${process.env.PORT}`)
+})

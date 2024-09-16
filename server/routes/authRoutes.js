@@ -48,6 +48,19 @@ router.post('/login', async (req, res) => {
         console.log(error);
     }
 });
-
+router.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        req.session.destroy((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.clearCookie('connect.sid');
+            res.redirect('http://localhost:3000');
+        });
+    });
+});
 // Export the router
 export default router;

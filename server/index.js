@@ -4,6 +4,7 @@ import axios from 'axios'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import authRoutes from './routes/authRoutes.js'
 dotenv.config()
 
 
@@ -30,7 +31,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 })
 
 app.use('/auth',authRoutes)
-app.use('alerts',priceAlertRoutes)
+//app.use('alerts',priceAlertRoutes)
 
 
 

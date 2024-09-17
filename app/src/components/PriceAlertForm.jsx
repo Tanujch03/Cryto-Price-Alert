@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-
-const PriceAlertSearch = () => {
+import Scroll from './scroll';
+export default function Component() {
   const [coinId, setCoinId] = useState('');
   const [cryptoData, setCryptoData] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [targetPrice, setTargetPrice] = useState('');
   const [email, setEmail] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false); // Toggle modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [alertHistory, setAlertHistory] = useState([]);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -60,7 +62,9 @@ const PriceAlertSearch = () => {
         });
         const data = await response.json();
         toast.success(data.message);
-        setIsModalOpen(false); // Close modal after submission
+        setIsModalOpen(false);
+        // Add the new alert to the history
+        setAlertHistory([...alertHistory, { coinId, targetPrice, email, date: new Date().toLocaleString() }]);
       } catch (error) {
         console.error('Error setting alert:', error);
         toast.error('Failed to set price alert.');
@@ -80,27 +84,49 @@ const PriceAlertSearch = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pt-16">
-      {/* Infinite Scroll Animation */}
-      <div className="fixed top-20 rounded-xl  p-3 text-white overflow-hidden text-lg shadow-lg">
-        <div className="animate-marquee whitespace-nowrap flex space-x-10">
-          {cryptoData.map((coin) => (
-            <span key={coin.id} className="mx-4">
-              {coin.name}:{' '}
-              <span className="text-blue-400">${coin.current_price.toFixed(2)}</span>
-            </span>
-          ))}
+      <Scroll />
+
+      {!showHistory ? (
+        <div className="flex flex-col items-center space-y-4 m-10">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+          >
+            Set New Price Alert
+          </button>
+          <button
+            onClick={() => setShowHistory(true)}
+            className="bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+          >
+            View Alert History
+          </button>
         </div>
-      </div>
+      ) : (
+        <div className="w-full max-w-4xl p-6 bg-gray-800 rounded-lg shadow-xl">
+          <h2 className="text-2xl font-bold mb-4">Alert History</h2>
+          {alertHistory.length > 0 ? (
+            <ul className="space-y-4">
+              {alertHistory.map((alert, index) => (
+                <li key={index} className="bg-gray-700 p-4 rounded-lg">
+                  <p><strong>Coin:</strong> {alert.coinId}</p>
+                  <p><strong>Target Price:</strong> ${alert.targetPrice}</p>
+                  <p><strong>Email:</strong> {alert.email}</p>
+                  <p><strong>Date Set:</strong> {alert.date}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No alerts have been set yet.</p>
+          )}
+          <button
+            onClick={() => setShowHistory(false)}
+            className="mt-6 bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105"
+          >
+            Back to Alerts
+          </button>
+        </div>
+      )}
 
-      {/* Button to open modal */}
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
-      >
-        Set New Price Alert
-      </button>
-
-      {/* Modal for setting price alert */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
           <div className="bg-gray-900 p-8 rounded-lg shadow-2xl w-96">
@@ -170,6 +196,4 @@ const PriceAlertSearch = () => {
       )}
     </div>
   );
-};
-
-export default PriceAlertSearch;
+}

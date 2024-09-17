@@ -51,7 +51,7 @@ const PriceAlertSearch = () => {
   const handleSubmit = async () => {
     if (targetPrice && email && coinId) {
       try {
-        const response = await fetch('/set-alert', {
+        const response = await fetch('http://localhost:3001/alerts/set-alert', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

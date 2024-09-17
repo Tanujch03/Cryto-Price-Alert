@@ -1,14 +1,21 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
-const hashedPassword = async (password)=>{
-    const salt = bcrypt.genSalt(10)
-    return await bcrypt.hash(password,salt)
-}
+export const hashPassword = (password) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.genSalt(12, (err, salt) => {
+      if (err) {
+        reject(err);
+      }
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(hash);
+      });
+    });
+  });
+};
 
-const comparePassword = async (password,hashedPassword)=>{
-    return await bcrypt.compare(password,hashedPassword)
-}
-
-
-
-export default { hashedPassword, comparePassword };
+export const comparePassword = (password, hashed) => {
+  return bcrypt.compare(password, hashed);
+};

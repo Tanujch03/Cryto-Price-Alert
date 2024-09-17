@@ -1,6 +1,5 @@
 import express from 'express';
-import hashPassword from '../helpers/auth.js';
-import comparePassword from '../helpers/auth.js'
+import { hashPassword,comparePassword} from '../helpers/auth.js';
 import jwt from 'jsonwebtoken';
 import Usercred from '../models/Usercred.js';
 
@@ -58,7 +57,7 @@ router.get('/logout', (req, res) => {
                 return next(err);
             }
             res.clearCookie('connect.sid');
-            res.redirect('http://localhost:3000');
+            res.redirect('http://localhost:5173');
         });
     });
 });

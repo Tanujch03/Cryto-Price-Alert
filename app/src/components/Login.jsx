@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = formData;
     try {
-      const { data } = await axios.post("http://localhost:3001/login", {
+      const { data } = await axios.post("http://localhost:3001/auth/login", {
         email,
         password
       });
@@ -36,7 +36,7 @@ const Login = () => {
           password: ''
         });
         toast.success('Login successful. Welcome!');
-        navigate('/Home2');
+        navigate('/pricealert');
       }
     } catch (error) {
       toast.error('Something went wrong. Please try again.');

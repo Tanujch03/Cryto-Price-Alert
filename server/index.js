@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser.json()); // Converts the encoded URL to JavaScript object
 app.use(express.static('public'));
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:5173'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));

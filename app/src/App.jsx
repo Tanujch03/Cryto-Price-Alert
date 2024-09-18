@@ -7,7 +7,8 @@ import PriceAlert from './components/PriceAlertForm';
 
 import Home from './components/Home';
 import History from './components/History';
-
+import Scroll from './components/scroll';
+import Navbar from './components/Navbar'
 function App() {
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/pricealert" element={<PriceAlert />} />
           <Route path="/" element={<Home />} />
           <Route path="/history" element={<History />} />
+          <Route path="/currentprice" element={<Scroll />}/>
         </Routes>
         
       </div>

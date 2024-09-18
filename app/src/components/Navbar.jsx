@@ -1,64 +1,70 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { AlertCircle, History, ArrowUpDown } from "lucide-react";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const [activeView, setActiveView] = useState('alerts');
 
   return (
-    <div className="bg-gray-800 py-4 shadow-lg">
-      <nav className="flex justify-between items-center max-w-7xl mx-auto px-4">
-        {/* Branding or Logo */}
-        <Link to="/" className="text-white font-bold text-xl hover:text-blue-400">
-          CryptoAlert
-        </Link>
-
-        {/* Hamburger Menu Icon (for small screens) */}
+    <div className="w-full max-w-4xl mx-auto p-6 bg-gray-900 rounded-lg shadow-xl">
+      <nav className="flex justify-center space-x-4 mb-8">
         <button
-          className="block md:hidden text-white hover:text-blue-400 focus:outline-none"
-          onClick={toggleMenu}
+          onClick={() => setActiveView('alerts')}
+          className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${
+            activeView === 'alerts' ? 'bg-blue-600 text-white' : 'bg-transparent text-gray-400 border border-gray-600'
+          } hover:bg-blue-500 hover:text-white`}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
-          </svg>
+          <AlertCircle className="w-4 h-4" />
+          <span>Set Alerts</span>
         </button>
 
-        {/* Navigation Links - Hidden on small screens, shown on medium+ screens */}
-        <div className={`flex-col md:flex-row md:flex ${isOpen ? 'flex' : 'hidden'} md:space-x-8 md:items-center w-full md:w-auto`}>
-          <Link to="/alerts" className="text-white hover:text-blue-400 block mt-4 md:mt-0">
-            Price Alerts
-          </Link>
-          <Link to="/features" className="text-white hover:text-blue-400 block mt-4 md:mt-0">
-            Features
-          </Link>
-          <Link to="/pricing" className="text-white hover:text-blue-400 block mt-4 md:mt-0">
-            Pricing
-          </Link>
-          <Link to="/about" className="text-white hover:text-blue-400 block mt-4 md:mt-0">
-            About Us
-          </Link>
-          <Link to="/register" className="text-white hover:text-blue-400 block mt-4 md:mt-0">
-            Register
-          </Link>
-          <Link to="/login" className="text-white hover:text-blue-400 block mt-4 md:mt-0">
-            Login
-          </Link>
-        </div>
+        <button
+          onClick={() => setActiveView('history')}
+          className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${
+            activeView === 'history' ? 'bg-blue-600 text-white' : 'bg-transparent text-gray-400 border border-gray-600'
+          } hover:bg-blue-500 hover:text-white`}
+        >
+          <History className="w-4 h-4" />
+          <span>Alert History</span>
+        </button>
+
+        <button
+          onClick={() => setActiveView('scroll')}
+          className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${
+            activeView === 'scroll' ? 'bg-blue-600 text-white' : 'bg-transparent text-gray-400 border border-gray-600'
+          } hover:bg-blue-500 hover:text-white`}
+        >
+          <ArrowUpDown className="w-4 h-4" />
+          <span>Price Scroll</span>
+        </button>
       </nav>
+
+      <div className="mt-8">
+        {activeView === 'alerts' && (
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Set New Price Alert</h2>
+            <button
+              onClick={() => console.log('Open modal to set alert')}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300"
+            >
+              Set New Price Alert
+            </button>
+          </div>
+        )}
+
+        {activeView === 'history' && (
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Alert History</h2>
+            <p className="text-gray-300">Your alert history will be displayed here.</p>
+          </div>
+        )}
+
+        {activeView === 'scroll' && (
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Price Scroll</h2>
+            <p className="text-gray-300">The price scroll component will be rendered here.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

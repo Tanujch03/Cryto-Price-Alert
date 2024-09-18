@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-import Scroll from './scroll';
+import Scroll from './scroll'; // Assuming Scroll is imported correctly
+import { AlertCircle, History, ArrowUpDown } from 'lucide-react';
+
 export default function Component() {
   const [coinId, setCoinId] = useState('');
   const [cryptoData, setCryptoData] = useState([]);
@@ -9,7 +11,7 @@ export default function Component() {
   const [targetPrice, setTargetPrice] = useState('');
   const [email, setEmail] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showHistory, setShowHistory] = useState(false);
+  const [activeView, setActiveView] = useState('alerts');
   const [alertHistory, setAlertHistory] = useState([]);
   const inputRef = useRef(null);
 
@@ -32,9 +34,7 @@ export default function Component() {
   useEffect(() => {
     if (coinId) {
       const filteredSuggestions = cryptoData
-        .filter((coin) =>
-          coin.name.toLowerCase().includes(coinId.toLowerCase())
-        )
+        .filter((coin) => coin.name.toLowerCase().includes(coinId.toLowerCase()))
         .map((coin) => coin.id)
         .sort();
       setSuggestions(filteredSuggestions);
@@ -63,8 +63,10 @@ export default function Component() {
         const data = await response.json();
         toast.success(data.message);
         setIsModalOpen(false);
-        // Add the new alert to the history
-        setAlertHistory([...alertHistory, { coinId, targetPrice, email, date: new Date().toLocaleString() }]);
+        setAlertHistory([
+          ...alertHistory,
+          { coinId, targetPrice, email, date: new Date().toLocaleString() },
+        ]);
       } catch (error) {
         console.error('Error setting alert:', error);
         toast.error('Failed to set price alert.');
@@ -82,50 +84,85 @@ export default function Component() {
     setTimeout(() => setShowSuggestions(false), 100);
   };
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pt-16">
-      <Scroll />
+  const renderContent = () => {
+    switch (activeView) {
+      case 'alerts':
+        return (
+          <div className="flex flex-col items-center space-y-4 m-10">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+            >
+              Set New Price Alert
+            </button>
+          </div>
+        );
+      case 'history':
+        return (
+          <div className="w-full max-w-4xl p-6 bg-gray-800 rounded-lg shadow-xl">
+            <h2 className="text-2xl font-bold mb-4">Alert History</h2>
+            {alertHistory.length > 0 ? (
+              <ul className="space-y-4">
+                {alertHistory.map((alert, index) => (
+                  <li key={index} className="bg-gray-700 p-4 rounded-lg">
+                    <p><strong>Coin:</strong> {alert.coinId}</p>
+                    <p><strong>Target Price:</strong> ${alert.targetPrice}</p>
+                    <p><strong>Email:</strong> {alert.email}</p>
+                    <p><strong>Date Set:</strong> {alert.date}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No alerts have been set yet.</p>
+            )}
+          </div>
+        );
+      case 'scroll':
+        return (
+          <div className="flex flex-col items-center">
+            <Scroll />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
-      {!showHistory ? (
-        <div className="flex flex-col items-center space-y-4 m-10">
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
-          >
-            Set New Price Alert
-          </button>
-          <button
-            onClick={() => setShowHistory(true)}
-            className="bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
-          >
-            View Alert History
-          </button>
-        </div>
-      ) : (
-        <div className="w-full max-w-4xl p-6 bg-gray-800 rounded-lg shadow-xl">
-          <h2 className="text-2xl font-bold mb-4">Alert History</h2>
-          {alertHistory.length > 0 ? (
-            <ul className="space-y-4">
-              {alertHistory.map((alert, index) => (
-                <li key={index} className="bg-gray-700 p-4 rounded-lg">
-                  <p><strong>Coin:</strong> {alert.coinId}</p>
-                  <p><strong>Target Price:</strong> ${alert.targetPrice}</p>
-                  <p><strong>Email:</strong> {alert.email}</p>
-                  <p><strong>Date Set:</strong> {alert.date}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No alerts have been set yet.</p>
-          )}
-          <button
-            onClick={() => setShowHistory(false)}
-            className="mt-6 bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105"
-          >
-            Back to Alerts
-          </button>
-        </div>
-      )}
+  return (
+    <div className="min-h-screen bg-gray-900 text-white pt-16">
+      <nav className="w-full bg-gray-800 py-4 fixed top-0 left-0 z-50 shadow-xl flex justify-center space-x-4">
+        <button
+          onClick={() => setActiveView('alerts')}
+          className={`${
+            activeView === 'alerts' ? 'bg-blue-600' : 'bg-gray-700'
+          } hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2`}
+        >
+          <AlertCircle className="w-4 h-4" />
+          <span>Set Alerts</span>
+        </button>
+        <button
+          onClick={() => setActiveView('history')}
+          className={`${
+            activeView === 'history' ? 'bg-purple-600' : 'bg-gray-700'
+          } hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2`}
+        >
+          <History className="w-4 h-4" />
+          <span>Alert History</span>
+        </button>
+        <button
+          onClick={() => setActiveView('scroll')}
+          className={`${
+            activeView === 'scroll' ? 'bg-green-600' : 'bg-gray-700'
+          } hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2`}
+        >
+          <ArrowUpDown className="w-4 h-4" />
+          <span>Price Scroll</span>
+        </button>
+      </nav>
+
+      <div className="pt-24 flex justify-center">
+        {renderContent()}
+      </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
@@ -180,13 +217,13 @@ export default function Component() {
             <div className="flex justify-between">
               <button
                 onClick={handleSubmit}
-                className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
               >
-                Set Alert
+                Submit
               </button>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
               >
                 Cancel
               </button>

@@ -97,7 +97,7 @@ const startConsumer = async () => {
     };
 
     try {
-        const connection = await amqp.connect('amqp://localhost');
+        const connection = await amqp.connect(process.env.RABBIT);
         const channel = await connection.createChannel();
         await channel.assertQueue(QUEUE_NAME, { durable: true });
 

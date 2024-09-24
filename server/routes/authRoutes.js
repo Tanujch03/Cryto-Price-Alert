@@ -4,7 +4,9 @@ import jwt from 'jsonwebtoken';
 import Usercred from '../models/Usercred.js';
 
 const router = express.Router();
-
+router.get("/",(req,res)=>{
+    return res.json("Working")
+})
 // Register route
 router.post('/register', async (req, res) => {
     try {

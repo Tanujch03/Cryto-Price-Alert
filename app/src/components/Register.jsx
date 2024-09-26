@@ -24,7 +24,7 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password } = formData;
     try {
-      const { data } = await axios.post("http://localhost:3001/auth/register", {
+      const { data } = await axios.post("https://cryto-price-alert-8ffn-5b57g7ezp-tanujch03s-projects.vercel.app/api/users/register", {
         name,
         email,
         password

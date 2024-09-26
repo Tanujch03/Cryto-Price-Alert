@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Crypto-Price-alert helps the user to trigger an email if the target price is hit :)",
   "main": "index.js",
-  
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
@@ -28,6 +27,7 @@
     "@prisma/extension-accelerate": "^1.1.0",
     "amqplib": "^0.10.4",
     "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",

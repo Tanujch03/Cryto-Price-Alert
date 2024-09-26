@@ -27,5 +27,7 @@ startConsumer();
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${process.env.PORT}`);
+   console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
+
+//module.exports 

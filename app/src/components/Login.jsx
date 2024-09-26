@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'; // Import toast for notifications
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock } from 'lucide-react'; // Assume similar icons used in the register page
+import { Mail, Lock } from 'lucide-react'; // Icons used in the login page
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,17 +29,17 @@ const Login = () => {
       });
 
       if (data.error) {
-        toast.error(data.error);
+        toast.error(data.error); // Display error message
       } else {
         setFormData({
           email: '',
           password: ''
         });
-        toast.success('Login successful. Welcome!');
+        toast.success('Login successful. Welcome!'); // Display success message
         navigate('/pricealert');
       }
     } catch (error) {
-      toast.error('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.'); // Error notification
       console.log(error);
     }
   };
@@ -49,7 +49,7 @@ const Login = () => {
       <div className="bg-gray-800 p-8 rounded-lg shadow-2xl max-w-md w-full">
         <h2 className="text-3xl font-bold mb-6 text-white text-center">Log in to Your Account</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6 ">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Email</label>
             <div className="relative">
@@ -60,7 +60,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="you@example.com"
               />
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
@@ -77,7 +77,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="••••••••"
               />
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />

@@ -4,7 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 
 import PriceAlert from './components/PriceAlertForm';
-
+import { Toaster } from 'react-hot-toast';
 import Home from './components/Home.jsx';
 import History from './components/History';
 import Scroll from './Scroll';
@@ -18,7 +18,7 @@ function App() {
       <Router>
       <div className="App">
        
-        
+      <Toaster />
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

@@ -18,7 +18,7 @@ app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/alerts', alertRoutes);
-app.get("work",(req,res)=>{
+app.get("/work",(req,res)=>{
     res.json({message:"working"})
 })
 connectDB();

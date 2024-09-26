@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast'; // Import react-hot-toast
 import { useNavigate } from 'react-router-dom';
 import { UserPlus, Mail, Lock } from 'lucide-react';
 
@@ -24,21 +24,24 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password } = formData;
     try {
-      const { data } = await axios.post("https://cryto-price-alert-8ffn-5b57g7ezp-tanujch03s-projects.vercel.app/api/users/register", {
-        name,
-        email,
-        password
-      });
+      const { data } = await axios.post(
+        "https://cryto-price-alert-8ffn-5b57g7ezp-tanujch03s-projects.vercel.app/api/users/register",
+        {
+          name,
+          email,
+          password
+        }
+      );
 
       if (data.error) {
-        toast.error(data.error);
+        toast.error(data.error); // Display error toast if there's an error
       } else {
         setFormData({ name: '', email: '', password: '' });
-        toast.success('Registration successful. Welcome!');
-        navigate('/Login');
+        toast.success('Registration successful. Welcome!'); // Success toast on successful registration
+        navigate('/login'); // Redirect to login
       }
     } catch (error) {
-      toast.error('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.'); // Error toast in case of any issues
       console.log(error);
     }
   };

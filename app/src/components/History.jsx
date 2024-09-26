@@ -8,7 +8,7 @@ const PriceAlertHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch('https://cryto-price-alert-8ffn-5b57g7ezp-tanujch03s-projects.vercel.app/api/alerts/history');
+        const response = await fetch('https://cryto-price-alert.vercel.app/api/alerts/history');
         const data = await response.json();
         setHistory(data);
       } catch (error) {

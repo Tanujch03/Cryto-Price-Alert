@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = formData;
     try {
-      const { data } = await axios.post("https://cryto-price-alert-8ffn-5b57g7ezp-tanujch03s-projects.vercel.app/api/users/login", {
+      const { data } = await axios.post("https://cryto-price-alert.vercel.app/api/users/login", {
         email,
         password
       });

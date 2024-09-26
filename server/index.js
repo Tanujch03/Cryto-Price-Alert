@@ -5,7 +5,7 @@ const {connectDB}= require('./config/db'); // Database connection
 const userRoutes = require('./routes/userController');
 const alertRoutes = require('./routes/alertController');
 const { startConsumer } = require('./services/rabbitMQService');
-const serverless  = require('serverless-http')
+
 const dotenv = require("dotenv")
 dotenv.config()
 
@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.use(cors({ origin: 'https://5ea0dd1b.cryto-price-alert.pages.dev/', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use(cors({ origin: 'https://9a3942ae.cryto-price-alert.pages.dev/', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 
 // Routes
 app.use('/api/users', userRoutes);
@@ -32,4 +32,3 @@ app.listen(port, () => {
    console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
 
-//module.exports.handler = serverless(app)

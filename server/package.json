@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Crypto-Price-alert helps the user to trigger an email if the target price is hit :)",
   "main": "index.js",
+  
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"

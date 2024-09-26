@@ -1,37 +1,49 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const {connectDB}= require('./config/db'); // Database connection
+const { connectDB } = require('./config/db'); // Database connection
 const userRoutes = require('./routes/userController');
 const alertRoutes = require('./routes/alertController');
 const { startConsumer } = require('./services/rabbitMQService');
+const dotenv = require("dotenv");
 
-const dotenv = require("dotenv")
-dotenv.config()
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use(express.json());
+// Middleware to handle CORS headers manually
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://9a3942ae.cryto-price-alert.pages.dev');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204); // Respond to preflight with no content
+  }
 
-app.use(cors({
-    credentials: true,
-    origin: 'https://9a3942ae.cryto-price-alert.pages.dev/'
-}));
+  next();
+});
+
+// Middleware
+app.use(express.json()); // Parse JSON bodies
 
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/alerts', alertRoutes);
-app.get("/work",(req,res)=>{
-    res.json({message:"working"})
-})
+
+// Test route
+app.get("/work", (req, res) => {
+    res.json({ message: "working" });
+});
+
+// Connect to the database
 connectDB();
+
 // Start RabbitMQ consumer
 startConsumer();
 
-// Start server
+// Start the server
 app.listen(port, () => {
-   console.log(`Server running on http://localhost:${process.env.PORT}`);
+    console.log(`Server running on http://localhost:${port}`);
 });
-

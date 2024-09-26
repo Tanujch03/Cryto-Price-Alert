@@ -30,4 +30,4 @@ app.listen(port, () => {
    console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
 
-module.exports.handler = serverless(app)
+//module.exports.handler = serverless(app)

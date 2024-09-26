@@ -8,7 +8,7 @@ import PriceAlert from './components/PriceAlertForm';
 import Home from './components/Home';
 import History from './components/History';
 import Scroll from './components/scroll';
-import Navbar from './components/Navbar'
+//import Navbar from './components/Navbar'
 function App() {
 
 

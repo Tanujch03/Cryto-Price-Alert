@@ -61,7 +61,7 @@ const Home = () => {
         <section id="contact" className="py-20 px-4 md:px-8 text-center bg-gray-900">
           <h2 className="text-4xl font-bold mb-8">Get in Touch</h2>
           <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Have questions or need support? We're here to help you stay on top of your crypto investments.
+            Have questions or need support? We re here to help you stay on top of your crypto investments.
           </p>
           <a 
             href="mailto:tanujchaganti@gmail.com" 
@@ -80,7 +80,7 @@ const Home = () => {
   );
 };
 
-const FeatureCard = ({ icon, title, description, gradient }) => (
+const FeatureCard = ( icon, title, description, gradient ) => (
   <div className={`flex flex-col items-center p-8 bg-gradient-to-r ${gradient} rounded-lg shadow-lg transition-transform transform hover:scale-105`}>
     <div className="text-white mb-6">{icon}</div>
     <h3 className="text-2xl font-semibold text-white mb-4">{title}</h3>

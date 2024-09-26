@@ -15,7 +15,10 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.use(cors({ origin: 'https://9a3942ae.cryto-price-alert.pages.dev/', methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use(cors({
+    credentials: true,
+    origin: 'https://9a3942ae.cryto-price-alert.pages.dev/'
+}));
 
 // Routes
 app.use('/api/users', userRoutes);

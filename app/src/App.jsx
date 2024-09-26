@@ -5,7 +5,7 @@ import Login from './components/Login';
 
 import PriceAlert from './components/PriceAlertForm';
 
-import Home from './components/Home';
+import Home from './components/Home.jsx';
 import History from './components/History';
 import Scroll from './Scroll';
 //import Navbar from './components/Navbar'

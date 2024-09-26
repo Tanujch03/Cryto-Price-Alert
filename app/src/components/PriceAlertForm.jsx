@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-import Scroll from './scroll'; // Assuming Scroll is imported correctly
+import Scroll from '../Scroll'; // Assuming Scroll is imported correctly
 import { AlertCircle, History, ArrowUpDown } from 'lucide-react';
 
 export default function Component() {

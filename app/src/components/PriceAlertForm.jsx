@@ -53,7 +53,7 @@ export default function Component() {
   const handleSubmit = async () => {
     if (targetPrice && email && coinId) {
       try {
-        const response = await fetch('https://cryto-price-alert.vercel.app/alerts/set-alert', {
+        const response = await fetch('https://cryto-price-alert.vercel.app/api/alerts/set-alert', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

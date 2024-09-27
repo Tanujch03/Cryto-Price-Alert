@@ -3,6 +3,7 @@ const { connectDB } = require('./config/db'); // Database connection
 const userRoutes = require('./routes/userController');
 const alertRoutes = require('./routes/alertController');
 const { startConsumer } = require('./services/rabbitMQService');
+const cors = require('cors')
 const dotenv = require("dotenv");
 
 dotenv.config();

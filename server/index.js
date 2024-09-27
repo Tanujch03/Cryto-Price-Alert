@@ -11,19 +11,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware to handle CORS headers manually
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://9a3942ae.cryto-price-alert.pages.dev');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(204); // Respond to preflight with no content
-  }
-
-  next();
-});
+app.use(cors({
+  origin: 'https://cryto-price-alert.pages.dev' // Allow only your frontend's domain
+}));
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies

@@ -53,14 +53,15 @@ export default function Component() {
   const handleSubmit = async () => {
     if (targetPrice && email && coinId) {
       try {
-        const response = await axios.post('https://cryto-price-alert.vercel.app/api/alerts/set-alert', {
-          coinId,
-          targetPrice,
-          email,
+        const response = await fetch('https://cryto-price-alert.vercel.app/api/alerts/set-alert', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ coinId, targetPrice, email }),
         });
-  
-        // Assuming the API returns a message in the response
-        toast.success(response.data.message);
+        const data = await response.json();
+        toast.success(data.message);
         setIsModalOpen(false);
         setAlertHistory([
           ...alertHistory,
@@ -74,7 +75,6 @@ export default function Component() {
       toast.error('Please fill out all fields.');
     }
   };
-
   const handleInputFocus = () => {
     setShowSuggestions(true);
   };

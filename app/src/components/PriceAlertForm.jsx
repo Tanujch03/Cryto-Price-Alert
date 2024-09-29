@@ -53,15 +53,14 @@ export default function Component() {
   const handleSubmit = async () => {
     if (targetPrice && email && coinId) {
       try {
-        const response = await fetch('https://cryto-price-alert.vercel.app/api/alerts/set-alert', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ coinId, targetPrice, email }),
+        const response = await axios.post('https://cryto-price-alert.vercel.app/api/alerts/set-alert', {
+          coinId,
+          targetPrice,
+          email,
         });
-        const data = await response.json();
-        toast.success(data.message);
+  
+        // Assuming the API returns a message in the response
+        toast.success(response.data.message);
         setIsModalOpen(false);
         setAlertHistory([
           ...alertHistory,

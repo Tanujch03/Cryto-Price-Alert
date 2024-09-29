@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import Scroll from '../Scroll'; // Assuming Scroll is imported correctly
 import { AlertCircle, History, ArrowUpDown } from 'lucide-react';
-
+import axios from 'axios'
 export default function Component() {
   const [coinId, setCoinId] = useState('');
   const [cryptoData, setCryptoData] = useState([]);

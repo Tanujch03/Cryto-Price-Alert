@@ -4,20 +4,20 @@ The Crypto Price Alert application monitors cryptocurrency prices in real-time a
 # Frontend
 
 ```
-this is used for running the frontend server
+this is used for running the frontend server:
 npm run dev
 ```
 
 # Backend
 ## Routes
 ```
-POST /api/users/register
+POST /api/users/register - used for registering 
 
-POST /api/users/signin
+POST /api/users/signin  - used for signing in
 
-POST /api/alerts/set-alert
+POST /api/alerts/set-alert - used for setting up the alarm
 
-PUT /api/alerts/history
+PUT /api/alerts/history - used for getting the history.
 ```
 
 ## .ENV

@@ -4,6 +4,7 @@ The Crypto Price Alert application monitors cryptocurrency prices in real-time a
 # Frontend
 
 ```
+this is used for running the frontend server
 npm run dev
 ```
 

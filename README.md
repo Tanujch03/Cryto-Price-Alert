@@ -1,5 +1,5 @@
 # Crypto Price Alerts
-The Crypto Price Alert application monitors cryptocurrency prices in real-time and triggers an email notification when a user’s target price is reached.
+Crypto Price Alert application monitors cryptocurrency prices in real-time and triggers an email notification when a user’s target price is reached.
 
 # Frontend
 
